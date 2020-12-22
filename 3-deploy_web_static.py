@@ -5,6 +5,8 @@ module that contains the function deploy
 from fabric.api import env, local, put, run
 from datetime import datetime
 from os.path import exists, isdir
+
+
 env.hosts = ['34.75.177.144', '35.231.63.237']
 
 
@@ -20,6 +22,7 @@ def do_pack():
         return filename
     except:
         return None
+
 
 def do_deploy(archive_path):
     """
@@ -44,6 +47,7 @@ def do_deploy(archive_path):
         return True
     except Exception as e:
         return False
+
 
 def deploy():
     """
