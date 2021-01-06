@@ -2,8 +2,8 @@
 """
 module that contains the do_deploy prototype
 """
-from os import path, exists
-from fabric.api import env, run, put, local
+from fabric.api import put, run, env
+from os.path import exists
 
 env.hosts = ['34.75.177.144', '35.231.63.237']
 env.user = 'ubuntu'
