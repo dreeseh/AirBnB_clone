@@ -4,17 +4,17 @@ module that contains the prototype def do_pack()
 """
 from datetime import datetime
 from fabric.api import local
+from os.path import isdir
 
 
 def do_pack():
-    """
-    generates a .tgz archive from the contents of a folder
-    """
+    """generates a tgz archive"""
     try:
-        date_time = datetime.now().srtftime("%Y%m%d%H%M%S")
-        local("mkdir -p versions")
-        filename = "web_static_{}.tgz".format(date_time)
-        local("tar -cvzf versions/{} ".format(filename))
-        return filename
+        date = datetime.now().strftime("%Y%m%d%H%M%S")
+        if isdir("versions") is False:
+            local("mkdir versions")
+        file_name = "versions/web_static_{}.tgz".format(date)
+        local("tar -cvzf {} web_static".format(file_name))
+        return file_name
     except:
         return None
