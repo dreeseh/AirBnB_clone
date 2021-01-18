@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 
-@app.route('/')
+@app.route('/', strict_slashes=False)
 def hello_hbnb():
     """
     displays “Hello HBNB!”
@@ -15,7 +15,7 @@ def hello_hbnb():
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb')
+@app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """
     returns "HBNB"
@@ -23,7 +23,7 @@ def hbnb():
     return 'HBNB'
 
 
-@app.route('/c/<text>')
+@app.route('/c/<text>', strict_slashes=False)
 def cisfun(text):
     """
     display “C ” followed by the value of the text variable
@@ -31,8 +31,8 @@ def cisfun(text):
     return 'C ' + text.replace('_', ' ')
 
 
-@app.route('/python')
-@app.route('/python/<text>')
+@app.route('/python', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
 def pythoniscool(text='is cool'):
     """
     display “Python ”, followed by the value of the text variable
@@ -40,7 +40,7 @@ def pythoniscool(text='is cool'):
     return 'Python ' + text.replace('_', ' ')
 
 
-@app.route('/number/<int:n>')
+@app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
     """
     display “n is a number” only if n is an integer
