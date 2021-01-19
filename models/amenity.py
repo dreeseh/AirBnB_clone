@@ -17,4 +17,3 @@ class Amenity(BaseModel, Base):
                                        backref='amenities')
     else:
         name = ""
-
