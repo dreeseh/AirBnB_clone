@@ -16,6 +16,8 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+classes = {"Amenity": Amenity, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
 
 class DBStorage:
     """
@@ -46,20 +48,14 @@ class DBStorage:
         """
         method returns a dictionary
         """
-
-        our_objects = {}
-        our_classes = [value for key, value in models.classes.items()]
-
-        if cls is None:
-            for obj in self.__session.query(User, State, City, Amenity,
-                                            Place, Review).all():
-                key = "{}.{}".format(type(obj).__name__, obj.id)
-                our_objects[key] = obj
-        else:
-            for obj in self.__session.query(eval(cls)).all():
-                key = "{}.{}".format(eval(cls).__name__, obj.id)
-                our_objects[key] = obj
-        return our_objects
+        new_dict = {}
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return (new_dict)
 
     def new(self, obj):
         """
