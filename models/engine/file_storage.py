@@ -49,6 +49,7 @@ class FileStorage:
         except FileNotFoundError:
             pass
 
+
 def close(self):
         """
         a public method for deserializing the JSON file
