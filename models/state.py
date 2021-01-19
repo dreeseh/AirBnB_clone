@@ -1,13 +1,19 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
+"""
+State Module for HBNB project
+"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Table
 from sqlalchemy.orm import relationship
 from models.city import City
 from os import getenv
 
+
 class State(BaseModel, Base):
-    """ State class """
+    """
+    State class
+    """
+
     __tablename__ = 'states'
     if getenv('HBNB_TPYE_STORAGE') == 'db':
         name = Column(String(128), nullable=False)
@@ -15,8 +21,12 @@ class State(BaseModel, Base):
                               backref="state", passive_deletes=True)
     else:
         name = ''
+
         def cities(self):
-            '''Getter for cities'''
+            """
+            Getter for cities
+            """
+
             from models import storage
             cities = storage.all(City)
             city_list = []
