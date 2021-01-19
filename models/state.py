@@ -29,11 +29,10 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """
-            Getter for cities
+            return the list of City objects from storage linked to the State
             """
-            all.cities = storage.models.all(City)
             city_list = []
-            for j in all_cities.values():
+            for j in models.storage.all(City).values():
                 if j.state_id == self.id:
                     city_list.append(j)
-            return city_list
+            return (city_list)
