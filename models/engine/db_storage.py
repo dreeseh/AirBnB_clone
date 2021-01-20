@@ -32,9 +32,15 @@ class DBStorage:
     __session = None
 
     def __init__(self):
+        """initializes the object DBStorage
         """
-        initializes the object DBStorage
-        """
+
+        HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
+        HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
+        HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
+        HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
+        HBNB_ENV = getenv('HBNB_ENV')
+
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}/{}'.format(
                 getenv('HBNB_MYSQL_USER'),
@@ -45,6 +51,9 @@ class DBStorage:
 
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
+
+        Session = sessionmaker(bind=self.__engine)
+        self.__session = Session()
 
     def all(self, cls=None):
         """
@@ -83,13 +92,13 @@ class DBStorage:
         creates all tables in the db & current session
         """
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine,
+        se_factory = sessionmaker(bind=self.__engine,
                                        expire_on_commit=False)
 
-        Session = scoped_session(session_factory)
+        Session = scoped_session(se_factory)
         self.__session = Session()
 
     def close(self):
         """ closes the current session
         """
-        self.__session.close()
+        self.__session.remove()
