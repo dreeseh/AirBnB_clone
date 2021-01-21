@@ -12,8 +12,7 @@ app = Flask(__name__)
 def states_list():
     """display a HTML page sorted by name (A->Z)
     """
-    states_all = list(storage.all("State").values())
-    return (render_template('7-states_list.html', states_all=states_all))
+    return render_template('7-states_list.html', storage=storage.all('State'))
 
 
 @app.teardown_appcontext
