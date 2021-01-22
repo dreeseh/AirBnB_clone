@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" starts a Web Flask application
+"""
+starts a Web Flask application
 """
 from flask import Flask, render_template
 from models import *
@@ -10,7 +11,8 @@ app = Flask(__name__)
 @app.route('/states/' strict_slashes=False)
 @app.route('/states/<state_id>' strict_slashes=False)
 def states(state_id=None):
-    """ display a HTML page listing sorted states & cities
+    """
+    display a HTML page listing sorted states & cities
     """
     states = storage.all("State")
     if state_id:
@@ -20,7 +22,8 @@ def states(state_id=None):
 
 @app.teardown_appcontext
 def teardown(exception):
-    """ closes storage on teardown
+    """
+    closes storage on teardown
     """
     storage.close()
 
