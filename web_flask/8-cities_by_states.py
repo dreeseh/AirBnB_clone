@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" starts a Web Flask application
+"""
+starts a Web Flask application
 """
 from flask import Flask, render_template
 from models import *
@@ -9,16 +10,14 @@ app = Flask(__name__)
 
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
-    """ lisits cities & states in alpha order
-    """
+    """ lisits cities & states in alpha order """
     states = storage.all("State").values()
     return render_template('8-cities_by_states.html', states=states)
 
 
 @app.teardown_appcontext
 def teardown(exception):
-    """ closes the storage
-    """
+    """ closes the storage """
     storage.close()
 
 
